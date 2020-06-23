@@ -15,13 +15,15 @@ export default class App extends Component {
                 {id: 2, label: 'That is so good', important: false, like: false},
                 {id: 3, label: 'I need a break...', important: false, like: false}
             ],
-            term: ''
+            term: '',
+            filter: 'all'
         };
         this.deleteItem = this.deleteItem.bind(this);
         this.addItem = this.addItem.bind(this);
         this.onToggleImportant = this.onToggleImportant.bind(this);
         this.onToggleLiked = this.onToggleLiked.bind(this);
         this.onUpdateSearch = this.onUpdateSearch.bind(this);
+        this.onFilterSelect = this.onFilterSelect.bind(this);
 
         this.maxId = 4;
     }
@@ -89,15 +91,27 @@ export default class App extends Component {
         })
     }
 
+    filterPost(items, filter) {
+        if (filter === 'like') {
+            return items.filter(item => item.like)
+        } else {
+            return items
+        }
+    }
+
+    onFilterSelect(filter) {
+        this.setState({filter})
+    }
+
     onUpdateSearch(term) {
         this.setState({term})
     }
 
     render() {
-        const {data, term} = this.state,
+        const {data, term, filter} = this.state,
               liked = data.filter(item => item.like).length,
               allPosts = data.length,
-              visiblePosts = this.searchPost(data, term);
+              visiblePosts = this.filterPost(this.searchPost(data, term), filter);
 
         return (
             <div className="app">
@@ -105,7 +119,7 @@ export default class App extends Component {
 
                 <div className="search-panel d-flex">
                     <SearchPanel onUpdateSearch={this.onUpdateSearch} />
-                    <PostStatusFilter/>
+                    <PostStatusFilter filter={filter} onFilterSelect={this.onFilterSelect} />
                 </div>
 
                 <PostList
