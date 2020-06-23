@@ -15,8 +15,9 @@
     }
   }
 
-  .btn-star {
-    color: #ffd700;
+  .btn-star,
+  .fa-heart {
+    color: #aeaeae
   }
 
   .btn-trash {
@@ -24,15 +25,7 @@
   }
 
   .fa-heart {
-    width: 35px;
-    height: 35px;
-    font-size: 16px;
-    color: red;
-    line-height: 35px;
-    text-align: center;
-    transition: 0.3s all;
-    transform: translateX(30px);
-    opacity: 0;
+    font-size: 16px
   }
 
   &-label {
@@ -44,17 +37,10 @@
   }
 
   &.like .fa-heart {
-    opacity: 1;
-    transform: translateX(0px);
+    color: red
   }
 
-  &.important {
-    .app-list-item-label {
-      color: #ffd700;
-    }
-
-    .btn-star {
-      color: #aeaeae;
-    }
+  &.important .btn-star {
+    color: #ffd700
   }
 }
